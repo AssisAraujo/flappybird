@@ -66,9 +66,11 @@ class Passaro:
                     if self.angulo > -90:
                         self.angulo -= self.VELOCIDADE_ROTACAO
 
-        def desenhar(self):
-    # definir qual imagem do passaro vai usar
-     self.contagem_imagem += 1
+        def desenhar(self, tela ):
+
+        # definir qual imagem do passaro vai usar
+
+        self.contagem_imagem += 1
 
         if self.contagem_imagem < self.TEMPO_ANIMACAO:
             self.imagem = self.IMGS[0]
@@ -78,7 +80,7 @@ class Passaro:
             self.imagem = self.IMGS[2]
         elif self.contagem_imagem < self.TEMPO_ANIMACAO*4:
             self.imagem = self.IMGS[1]
-        elif self.contagem_imagem > self.TEMPO_ANIMACAO*4 +1:
+        elif self.contagem_imagem >= self.TEMPO_ANIMACAO*4 +1:
             self.imagem = self.IMGS[0]
             self.contagem_imagem = 0
 
@@ -88,7 +90,10 @@ class Passaro:
         self.contagem_imagem = self.TEMPO_ANIMACAO*2
 
     # desenhar a imagem
-
+    imagem_rotacionada = pygame.transform.rotate(self.imagem, self.angulo)
+    pos_centro_imagem = self.imagem.get_ect(topleft=(self.x, self.y)).center
+    retangulo = imagem_rotacionada.get_rect(center=pos_centro_imagem)
+    tela.blit(imagem_rotacionada, retangulo.topleft)
 
 class Cano:
     pass
